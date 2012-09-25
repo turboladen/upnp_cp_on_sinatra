@@ -1,0 +1,108 @@
+<div class="page-header">
+  <small class="pull-right">Device count: <%= @devices.size %></small>
+  <h1>UPnP Devices</h1>
+</div>
+
+<div class="row">
+  <div class="span3 devices-sidebar">
+    <ul class="nav nav-list">
+      <% @friendly_names.each do |friendly_name| %>
+        <li>
+          <a href='#<%= friendly_name %>'>
+            <i class="icon-chevron-right"></i>
+            <%= friendly_name %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="span9">
+    <% @devices.each do |device| %>
+        <table class="table table-bordered" id='<%= device.friendly_name %>'>
+          <thead>
+            <tr>
+              <td>
+                <% unless device.icon_list.empty? %>
+                    <% device.icon_list.each do |icon_info| %>
+                        <% puts "icon info #{icon_info}" %>
+                        <img src="<%= icon_info[:url] %>">
+                    <% end %>
+                <% end %>
+              </td>
+            </tr>
+          </thead>
+
+          <tbody>
+              <tr>
+                <td>Friendly name:</td>
+                <td><%= device.friendly_name%></td>
+              </tr>
+              <tr>
+                <td>Device type:</td>
+                <td><%= device.device_type %></td>
+              </tr>
+              <tr>
+                <td>Manufacturer:</td>
+                <td><%= device.manufacturer %></td>
+              </tr>
+              <tr>
+                <td>Model name:</td>
+                <td><%= device.model_name %></td>
+              </tr>
+              <tr>
+                <td>Model number:</td>
+                <td><%= device.model_number %></td>
+              </tr>
+              <tr>
+                <td>Serial number:</td>
+                <td><%= device.serial_number %></td>
+              </tr>
+              <tr>
+                <td>Presentation URL:</td>
+                <td>
+                  <a href="<%= device.presentation_url %>">
+                    <%= device.presentation_url %>
+                  </a>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+
+        <% unless device.services.empty? %>
+            <h2>Service Info</h2>
+            <% device.services.each do |service| %>
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td>Service type:</td>
+                      <td><%= service.service_type %>
+                    </tr>
+                    <tr>
+                      <td>Service ID:</td>
+                      <td><%= service.service_id %>
+                    </tr>
+                    <tr>
+                      <td>Service actions:</td>
+                      <td>
+                        <% service.actions.each do |action| %>
+                            <table border="3">
+                              <tr>
+                                <td>Name:</td>
+                                <td><%= action[:name] %></td>
+                              </tr>
+                              <tr>
+                                <td>Arguments:</td>
+                                <td><%= action[:argumentList] %></td>
+                              </tr>
+                            </table>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+</div>

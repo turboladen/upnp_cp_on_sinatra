@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UPnP Control Point on Sinatra</title>
+  <script src="/lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+  <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body style="padding-top: 50px;" data-spy="scroll" data-target=".devices-sidebar">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+
+          <a class="brand" href="/">
+            UPnP Control Point on Sinatra
+          </a>
+
+          <p class="pull-right"><%= Time.now %></p>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <%if @error then %>
+          <div class="alert alert-error"><%=@error%></div>
+      <% end %>
+      <%= yield %>
+    </div>
+</body>
+</html>
