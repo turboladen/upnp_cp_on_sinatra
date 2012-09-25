@@ -7,4 +7,3 @@ require 'rack/upnp_control_point'
 
 use Rack::UPnPControlPoint, :root
 run UPnPControlPoint
-
