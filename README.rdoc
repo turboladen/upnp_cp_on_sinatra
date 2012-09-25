@@ -1,0 +1,5 @@
+= upnp_cp_on_sinatra
+
+This is just a test/example site that uses the
+upnp[http://github.com/turboladen/upnp] RubyGem to display UPnP devices on your
+network.
