@@ -14,8 +14,9 @@
           = friendly_name
 
   .span9
+    %h2 Device Info
     - @devices.each do |device|
-      %table.table.table-bordered{:id => device.friendly_name}
+      %table.table.table-bordered.table-condensed.table-striped{:id => device.friendly_name}
         %thead
           %tr
             %td
@@ -29,12 +30,26 @@
             %td= device.friendly_name
 
           %tr
+            %td UDN:
+            %td= device.udn
+
+          %tr
             %td Device type:
             %td= device.device_type
 
           %tr
             %td Manufacturer:
             %td= device.manufacturer
+
+          %tr
+            %td Manufacturer URL:
+            %td
+              %a{ href: "#{device.manufacturer_url}" }
+                = device.manufacturer_url
+
+          %tr
+            %td Model description:
+            %td= device.model_description
 
           %tr
             %td Model name:
@@ -45,8 +60,22 @@
             %td= device.model_number
 
           %tr
+            %td Model URL:
+            %td
+              %a{ href: "#{device.model_url}" }
+                = device.model_url
+
+          %tr
             %td Serial number:
             %td= device.serial_number
+
+          %tr
+            %td Serial number:
+            %td= device.upc
+
+          %tr
+            %td Spec version
+            %td= device.spec_version
 
           %tr
             %td Presentation URL:
@@ -54,10 +83,30 @@
               %a{:href => device.presentation_url}
                 = device.presentation_url
 
+          %tr
+            %td USN
+            %td= device.usn
+
+          %tr
+            %td Server
+            %td= device.server
+
+          %tr
+            %td Cache-control
+            %td= device.cache_control
+
+          %tr
+            %td Date
+            %td= device.date
+
+          %tr
+            %td Location
+            %td= device.location
+
       - unless device.services.empty?
         %h2 Service Info
         - device.services.each do |service|
-          %table.table.table-bordered
+          %table.table.table-bordered.table-condensed
             %tbody
               %tr
                 %td Service type:
@@ -65,9 +114,43 @@
                   = service.service_type
 
               %tr
+                %td Service description:
+                %td
+                  = service.description
+
+              %tr
                 %td Service ID:
                 %td
                   = service.service_id
+
+              %tr
+                %td SCPD URL:
+                %td
+                  %a{ href: "#{service.scpd_url}" }
+                    = service.scpd_url
+
+              %tr
+                %td Control URL:
+                %td
+                  %a{ href: "#{service.control_url}" }
+                    = service.control_url
+
+              %tr
+                %td Event Sub URL:
+                %td
+                  %a{ href: "#{service.event_sub_url}" }
+                    = service.event_sub_url
+
+              %tr
+                %td Device base URL:
+                %td
+                  %a{ href: "#{service.device_base_url}" }
+                    = service.device_base_url
+
+              %tr
+                %td Service state table:
+                %td
+                  = service.service_state_table
 
               %tr
                 %td Service actions:
