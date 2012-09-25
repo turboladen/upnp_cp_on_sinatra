@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title UPnP Control Point on Sinatra
+    %script{:src => "/lib/jquery-1.7.2.min.js", :type => "text/javascript"}
+    %script{:src => "/lib/bootstrap/js/bootstrap.min.js"}
+    %link{:href => "/lib/bootstrap/css/bootstrap.min.css", :rel => "stylesheet"}
+
+  %body{"data-spy" => "scroll", "data-target" => ".devices-sidebar", :style => "padding-top: 50px;"}
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.brand{:href => "/"}
+            UPnP Control Point on Sinatra
+
+          %p.pull-right= Time.now
+
+    .container
+      - if @error then
+        .alert.alert-error= @error
+
+      = yield

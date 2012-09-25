@@ -1,0 +1,84 @@
+.page-header
+  %small.pull-right
+    Device count:
+    = @devices.size
+  %h1 UPnP Devices
+
+.row
+  .span3.devices-sidebar
+    %ul.nav.nav-list
+    - @friendly_names.each do |friendly_name|
+      %li
+        %a{:href => "##{friendly_name}"}
+          %i.icon-chevron-right
+          = friendly_name
+
+  .span9
+    - @devices.each do |device|
+      %table.table.table-bordered{:id => device.friendly_name}
+        %thead
+          %tr
+            %td
+              - unless device.icon_list.empty?
+                - device.icon_list.each do |icon_info|
+                  - puts "icon info #{icon_info}"
+                  %img{:src => icon_info[:url]}
+        %tbody
+          %tr
+            %td Friendly name:
+            %td= device.friendly_name
+
+          %tr
+            %td Device type:
+            %td= device.device_type
+
+          %tr
+            %td Manufacturer:
+            %td= device.manufacturer
+
+          %tr
+            %td Model name:
+            %td= device.model_name
+
+          %tr
+            %td Model number:
+            %td= device.model_number
+
+          %tr
+            %td Serial number:
+            %td= device.serial_number
+
+          %tr
+            %td Presentation URL:
+            %td
+              %a{:href => device.presentation_url}
+                = device.presentation_url
+
+      - unless device.services.empty?
+        %h2 Service Info
+        - device.services.each do |service|
+          %table.table.table-bordered
+            %tbody
+              %tr
+                %td Service type:
+                %td
+                  = service.service_type
+
+              %tr
+                %td Service ID:
+                %td
+                  = service.service_id
+
+              %tr
+                %td Service actions:
+                %td
+                  - service.actions.each do |action|
+                    %table{:border => "3"}
+                      %tr
+                        %td Name:
+                        %td= action[:name]
+
+                      %tr
+                        %td Arguments:
+                        %td= action[:argumentList]
+

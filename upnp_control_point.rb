@@ -8,6 +8,6 @@ class UPnPControlPoint < Sinatra::Base
   get '/' do
     @devices = env['upnp.devices']
     @friendly_names = @devices.map(&:friendly_name)
-    erb :index
+    haml :index
   end
 end

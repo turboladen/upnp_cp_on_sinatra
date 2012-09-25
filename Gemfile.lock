@@ -37,6 +37,7 @@ GEM
     eventmachine (1.0.0)
     gyoku (0.4.6)
       builder (>= 2.1.2)
+    haml (3.1.7)
     http_parser.rb (0.5.3)
     httpi (1.1.1)
       rack
@@ -71,5 +72,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   sinatra
   upnp!
