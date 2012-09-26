@@ -5,18 +5,18 @@
   %h1 UPnP Devices
 
 .row
-  .span3.devices-sidebar
-    %ul.nav.nav-list
-    - @friendly_names.each do |friendly_name|
-      %li
-        %a{:href => "##{friendly_name}"}
-          %i.icon-chevron-right
-          = friendly_name
+  .span3#devices-sidebar
+    %ul.nav.nav-list.affix{ "data-spy" => "affix", "data-offset-top" => 200 }
+      - @friendly_names.each do |friendly_name|
+        %li
+          %a{:href => "##{friendly_name}"}
+            %i.icon-chevron-right
+            = friendly_name
 
   .span9
-    %h2 Device Info
     - @devices.each do |device|
-      %table.table.table-bordered.table-condensed.table-striped{:id => device.friendly_name}
+      %h2{:id => device.friendly_name} Device Info
+      %table.table.table-bordered.table-condensed.table-striped
         %thead
           %tr
             %td
@@ -103,6 +103,14 @@
             %td Location
             %td= device.location
 
+          %tr
+            %td Child device count
+            %td= device.device_list.size
+
+          %tr
+            %td Service count:
+            %td= device.services.size
+
       - unless device.services.empty?
         %h2 Service Info
         - device.services.each do |service|
@@ -164,4 +172,5 @@
                       %tr
                         %td Arguments:
                         %td= action[:argumentList]
+      %hr
 
