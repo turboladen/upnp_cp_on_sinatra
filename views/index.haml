@@ -6,7 +6,7 @@
 
 .row
   .span3#devices-sidebar
-    %ul.nav.nav-list.affix{ "data-spy" => "affix", "data-offset-top" => 200 }
+    %ul.nav.nav-list.bs-docs-sidenav.affix{ "data-spy" => "affix", "data-offset-top" => 200 }
       - @friendly_names.each do |friendly_name|
         %li
           %a{:href => "##{friendly_name}"}
