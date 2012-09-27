@@ -1,3 +1,6 @@
+html, body {
+    background-color: #fffff5;
+}
 .bs-docs-sidenav > li > a {
     display: block;
     margin: 0 0 -1px;
