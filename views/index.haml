@@ -15,10 +15,11 @@
 
   .span9
     - @devices.each do |device|
-      %a.pull-right{ href: "/#{device.usn}"}
-        %button.btn-primary
-          &raquo
-      %h2{:id => device.friendly_name} Device Info
+      %h2{:id => device.friendly_name}
+        %a{ href: "/#{device.usn}"}
+          %button.btn-large.btn-inverse
+            &raquo
+        Device Info
       %table.table.table-bordered.table-condensed.table-striped
         %thead
           %tr
@@ -125,11 +126,6 @@
                   = service.service_type
 
               %tr
-                %td Service description:
-                %td
-                  = service.description
-
-              %tr
                 %td Service ID:
                 %td
                   = service.service_id
@@ -159,21 +155,12 @@
                     = service.device_base_url
 
               %tr
-                %td Service state table:
-                %td
-                  = service.service_state_table
-
-              %tr
                 %td Service actions:
                 %td
-                  - service.actions.each do |action|
-                    %table{:border => "3"}
+                  %table.table.table-bordered.table-condensed.table-striped
+                    - service.actions.each do |action|
                       %tr
                         %td Name:
                         %td= action[:name]
-
-                      %tr
-                        %td Arguments:
-                        %td= action[:argumentList]
       %hr
 
