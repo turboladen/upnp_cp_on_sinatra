@@ -15,6 +15,9 @@
 
   .span9
     - @devices.each do |device|
+      %a.pull-right{ href: "/#{device.usn}"}
+        %button.btn-primary
+          &raquo
       %h2{:id => device.friendly_name} Device Info
       %table.table.table-bordered.table-condensed.table-striped
         %thead

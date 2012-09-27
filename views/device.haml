@@ -1,0 +1,175 @@
+.page-header
+  %h1
+    Device USN:
+    %small
+      = @device.usn
+
+.row
+  .span3#devices-sidebar
+    %ul.nav.nav-list.bs-docs-sidenav.affix{ "data-spy" => "affix", "data-offset-top" => 130 }
+      - @device.services.each do |service|
+        %li
+          %a{:href => "##{service.service_type}"}
+            %i.icon-chevron-right
+            = service.service_type
+
+  .span9
+    %h2
+    %table.table.table-bordered.table-condensed.table-striped
+      %thead
+        %tr
+          %td
+            - unless @device.icon_list.empty?
+              - @device.icon_list.each do |icon_info|
+                - puts "icon info #{icon_info}"
+                %img{:src => icon_info[:url]}
+      %tbody
+        %tr
+          %td Friendly name:
+          %td= @device.friendly_name
+
+        %tr
+          %td UDN:
+          %td= @device.udn
+
+        %tr
+          %td Device type:
+          %td= @device.device_type
+
+        %tr
+          %td Manufacturer:
+          %td= @device.manufacturer
+
+        %tr
+          %td Manufacturer URL:
+          %td
+            %a{ href: "#{@device.manufacturer_url}" }
+              = @device.manufacturer_url
+
+        %tr
+          %td Model description:
+          %td= @device.model_description
+
+        %tr
+          %td Model name:
+          %td= @device.model_name
+
+        %tr
+          %td Model number:
+          %td= @device.model_number
+
+        %tr
+          %td Model URL:
+          %td
+            %a{ href: "#{@device.model_url}" }
+              = @device.model_url
+
+        %tr
+          %td Serial number:
+          %td= @device.serial_number
+
+        %tr
+          %td Serial number:
+          %td= @device.upc
+
+        %tr
+          %td Spec version
+          %td= @device.spec_version
+
+        %tr
+          %td Presentation URL:
+          %td
+            %a{:href => @device.presentation_url}
+              = @device.presentation_url
+
+        %tr
+          %td USN
+          %td= @device.usn
+
+        %tr
+          %td Server
+          %td= @device.server
+
+        %tr
+          %td Cache-control
+          %td= @device.cache_control
+
+        %tr
+          %td Date
+          %td= @device.date
+
+        %tr
+          %td Location
+          %td= @device.location
+
+        %tr
+          %td Child device count
+          %td= @device.device_list.size
+
+        %tr
+          %td Service count:
+          %td= @device.services.size
+
+    - unless @device.services.empty?
+      %h2 Service Info
+      - @device.services.each do |service|
+        %table.table.table-bordered.table-condensed{:id => service.service_type }
+          %tbody
+            %tr
+              %td Service type:
+              %td
+                = service.service_type
+
+            %tr
+              %td Service description:
+              %td
+                = service.description
+
+            %tr
+              %td Service ID:
+              %td
+                = service.service_id
+
+            %tr
+              %td SCPD URL:
+              %td
+                %a{ href: "#{service.scpd_url}" }
+                  = service.scpd_url
+
+            %tr
+              %td Control URL:
+              %td
+                %a{ href: "#{service.control_url}" }
+                  = service.control_url
+
+            %tr
+              %td Event Sub URL:
+              %td
+                %a{ href: "#{service.event_sub_url}" }
+                  = service.event_sub_url
+
+            %tr
+              %td Device base URL:
+              %td
+                %a{ href: "#{service.device_base_url}" }
+                  = service.device_base_url
+
+            %tr
+              %td Service state table:
+              %td
+                = service.service_state_table
+
+            %tr
+              %td Service actions:
+              %td
+                - service.actions.each do |action|
+                  %table{:border => "3"}
+                    %tr
+                      %td Name:
+                      %td= action[:name]
+
+                    %tr
+                      %td Arguments:
+                      %td= action[:argumentList]
+    %hr
+
