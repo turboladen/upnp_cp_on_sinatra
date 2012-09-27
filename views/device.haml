@@ -170,6 +170,17 @@
 
                     %tr
                       %td Arguments:
-                      %td= action[:argumentList]
+                      - args = action[:argumentList][:argument]
+                      %td= args
+
+                    - if (args.is_a?(Hash) && args[:direction] == "out") || (args.is_a?(Array) && args.all? { |a| a[:direction] == "out" })
+                      %tr
+                        %td
+                        %td
+                          %a{ href: "/#{@device.usn}/#{service.service_type}/#{action[:name]}"}
+                            %button.btn.btn-primary
+                              Try me!
+
+
     %hr
 

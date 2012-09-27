@@ -2,6 +2,7 @@ require 'upnp/control_point'
 require './upnp_control_point'
 require 'rack/upnp_control_point'
 require 'haml'
+require 'json'
 
 
 #UPnP::ControlPoint.config { |c| c.raise_on_remote_errors = false }
