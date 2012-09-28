@@ -7,7 +7,7 @@
 .row
   .span3#devices-sidebar
     %ul.nav.nav-list.bs-docs-sidenav.affix{ "data-spy" => "affix", "data-offset-top" => 130 }
-      - @device.services.each do |service|
+      - @device.service_list.each do |service|
         %li
           %a{:href => "##{service.service_type}"}
             %i.icon-chevron-right
@@ -108,22 +108,17 @@
 
         %tr
           %td Service count:
-          %td= @device.services.size
+          %td= @device.service_list.size
 
-    - unless @device.services.empty?
+    - unless @device.service_list.empty?
       %h2 Service Info
-      - @device.services.each do |service|
+      - @device.service_list.each do |service|
         %table.table.table-bordered.table-condensed{:id => service.service_type }
           %tbody
             %tr
               %td Service type:
               %td
                 = service.service_type
-
-            %tr
-              %td Service description:
-              %td
-                = service.description
 
             %tr
               %td Service ID:
@@ -149,38 +144,55 @@
                   = service.event_sub_url
 
             %tr
-              %td Device base URL:
+              %td XMLNS:
               %td
-                %a{ href: "#{service.device_base_url}" }
-                  = service.device_base_url
+                = service.xmlns
+
+            %tr
+              %td Spec version:
+              %td
+                = service.spec_version
+
+            %tr
+              %td Service actions:
+              %td
+                - service.action_list.each do |action|
+                  %table.table.table-bordered.table-condensed.table-striped
+                    %thead
+                      %caption
+                        %h4= action[:name]
+
+                    %tbody
+                      %tr
+                        %th Name
+                        %th Direction
+                        %th Related state variable
+
+                      - args = action[:argumentList][:argument]
+                      - if args.is_a? Array
+                        - args.each do |arg|
+                          %tr
+                            %td= arg[:name]
+                            %td= arg[:direction]
+                            %td= arg[:relatedStateVariable]
+
+                      - else
+                        %tr
+                          %td= args[:name]
+                          %td= args[:direction]
+                          %td= args[:relatedStateVariable]
+
+                      - if (args.is_a?(Hash) && args[:direction] == "out") || (args.is_a?(Array) && args.all? { |a| a[:direction] == "out" })
+                        %tr
+                          %td{ colspan: 3 }
+                            %a{ href: "/#{@device.usn}/#{service.service_type}/#{action[:name]}"}
+                              %button.btn.btn-primary
+                                Try me!
 
             %tr
               %td Service state table:
               %td
                 = service.service_state_table
-
-            %tr
-              %td Service actions:
-              %td
-                - service.actions.each do |action|
-                  %table.table.table-bordered.table-condensed.table-striped
-                    %tr
-                      %td Name:
-                      %td= action[:name]
-
-                    %tr
-                      %td Arguments:
-                      - args = action[:argumentList][:argument]
-                      %td= args
-
-                    - if (args.is_a?(Hash) && args[:direction] == "out") || (args.is_a?(Array) && args.all? { |a| a[:direction] == "out" })
-                      %tr
-                        %td
-                        %td
-                          %a{ href: "/#{@device.usn}/#{service.service_type}/#{action[:name]}"}
-                            %button.btn.btn-primary
-                              Try me!
-
 
     %hr
 
