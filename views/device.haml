@@ -192,7 +192,21 @@
             %tr
               %td Service state table:
               %td
-                = service.service_state_table
+                %table.table.table-bordered.table-condensed.table-striped
+                  %tbody
+                    %tr
+                      %th Name
+                      %th Data type
+                      %th Other
+
+                    - service.service_state_table.sort_by { |k,v| k[:name] }.each do |state|
+                      - tmp_state = state.dup
+                      %tr
+                        %td= tmp_state[:name]
+                        %td= tmp_state[:dataType]
+                        - tmp_state.delete :name
+                        - tmp_state.delete :dataType
+                        %td= tmp_state
 
     %hr
 
