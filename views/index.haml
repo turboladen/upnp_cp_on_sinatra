@@ -17,7 +17,7 @@
     - @devices.each do |device|
       %h2{:id => device.friendly_name}
         %a{ href: "/#{device.usn}"}
-          %button.btn-large.btn-inverse
+          %button.btn-large.btn-primary
             &raquo
         Device Info
       %table.table.table-bordered.table-condensed.table-striped
@@ -113,11 +113,11 @@
 
           %tr
             %td Service count:
-            %td= device.services.size
+            %td= device.service_list.size
 
-      - unless device.services.empty?
+      - unless device.service_list.empty?
         %h2 Service Info
-        - device.services.each do |service|
+        - device.service_list.each do |service|
           %table.table.table-bordered.table-condensed
             %tbody
               %tr
@@ -149,16 +149,10 @@
                     = service.event_sub_url
 
               %tr
-                %td Device base URL:
-                %td
-                  %a{ href: "#{service.device_base_url}" }
-                    = service.device_base_url
-
-              %tr
                 %td Service actions:
                 %td
                   %table.table.table-bordered.table-condensed.table-striped
-                    - service.actions.each do |action|
+                    - service.action_list.each do |action|
                       %tr
                         %td Name:
                         %td= action[:name]
