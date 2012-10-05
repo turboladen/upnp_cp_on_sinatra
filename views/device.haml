@@ -18,14 +18,14 @@
     %table.table.table-bordered.table-condensed.table-striped
       %thead
         %tr
-          %td
+          %td{ colspan: 2 }
             - unless @device.icon_list.empty?
               - @device.icon_list.each do |icon_info|
                 - puts "icon info #{icon_info}"
                 %img{:src => icon_info[:url]}
       %tbody
         %tr
-          %td Friendly name:
+          %td.span2 Friendly name:
           %td= @device.friendly_name
 
         %tr
