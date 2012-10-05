@@ -20,7 +20,7 @@ class UPnPControlPoint < Sinatra::Base
     device = env['upnp.devices'].find { |d| d.usn == params[:usn] }
     if device && device.has_services?
       service = device.service_list.find { |s| s.service_type == params[:service_type] }
-      result = service.send(params[:action_name])
+      result = service.send(params[:action_name], params[:in])
 
       body result.to_json
     else

@@ -171,27 +171,30 @@
                         %th Name
                         %th Direction
                         %th Related state variable
+                        %th "in" value
 
-                      - args = action[:argumentList][:argument]
-                      - if args.is_a? Array
-                        - args.each do |arg|
+                      %form(action="/#{@device.usn}/#{service.service_type}/#{action[:name]}" method='GET')
+                        - args = action[:argumentList][:argument]
+                        - if args.is_a? Array
+                          - args.each do |arg|
+                            %tr
+                              %td= arg[:name]
+                              %td= arg[:direction]
+                              %td= arg[:relatedStateVariable]
+                              %td
+                                %input(type='text' name="in[#{arg[:name]}]")
+
+                        - else
                           %tr
-                            %td= arg[:name]
-                            %td= arg[:direction]
-                            %td= arg[:relatedStateVariable]
+                            %td= args[:name]
+                            %td= args[:direction]
+                            %td= args[:relatedStateVariable]
+                            %td
+                              %input(disabled)
 
-                      - else
                         %tr
-                          %td= args[:name]
-                          %td= args[:direction]
-                          %td= args[:relatedStateVariable]
-
-                      - if (args.is_a?(Hash) && args[:direction] == "out") || (args.is_a?(Array) && args.all? { |a| a[:direction] == "out" })
-                        %tr
-                          %td{ colspan: 3 }
-                            %a{ href: "/#{@device.usn}/#{service.service_type}/#{action[:name]}"}
-                              %button.btn.btn-primary
-                                Try me!
+                          %td(colspan=4)
+                            %input(type='submit' class='btn btn-primary')
 
             %tr
               %td Service state table:
